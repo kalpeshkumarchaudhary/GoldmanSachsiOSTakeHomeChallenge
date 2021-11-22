@@ -8,4 +8,10 @@
 import Foundation
 
 class TransactionsViewModel: ObservableObject {
+    @Published var transactions: [TransactionItemViewModel]
+    
+    // MARK: Initializer
+    init(transactions: [TransactionItemViewModel] = []) {
+        self.transactions = transactions
+    }
 }
