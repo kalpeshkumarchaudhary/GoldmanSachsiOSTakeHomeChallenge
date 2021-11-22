@@ -12,3 +12,11 @@ enum CategoryFilterViewModel {
     case all
     case other(TransactionModel.Category)
 }
+
+extension CategoryFilterViewModel: CaseIterable {
+    static var allCases: [CategoryFilterViewModel] {
+        var allCategories: [CategoryFilterViewModel] = [.all]
+        allCategories.append(contentsOf: TransactionModel.Category.allCases.map({ .other($0) }))
+        return allCategories
+    }
+}
