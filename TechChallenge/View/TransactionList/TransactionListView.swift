@@ -9,17 +9,21 @@ import SwiftUI
 
 struct TransactionListView: View {
     let transactions: [TransactionModel] = ModelData.sampleTransactions
+    @State private var selectedFilter: CategoryFilterViewModel = .all
     
     var body: some View {
-        List {
-            ForEach(transactions) { transaction in
-                TransactionView(transaction: transaction)
+        VStack {
+            CategoryFilterView(selectedFilter: $selectedFilter)
+            List {
+                ForEach(transactions) { transaction in
+                    TransactionView(transaction: transaction)
+                }
             }
+            .animation(.easeIn)
+            .listStyle(PlainListStyle())
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Transactions")
         }
-        .animation(.easeIn)
-        .listStyle(PlainListStyle())
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle("Transactions")
     }
 }
 
