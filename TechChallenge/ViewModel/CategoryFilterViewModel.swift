@@ -20,3 +20,14 @@ extension CategoryFilterViewModel: CaseIterable {
         return allCategories
     }
 }
+
+extension CategoryFilterViewModel: Identifiable {
+    var id: String {
+        switch self {
+        case .all:
+            return "all"
+        case .other(let category):
+            return category.rawValue
+        }
+    }
+}
