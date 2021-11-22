@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
+
+enum CategoryFilterViewModel {
+    case all
+    case other(TransactionModel.Category)
+}
