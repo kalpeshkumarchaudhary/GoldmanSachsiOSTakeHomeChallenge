@@ -11,6 +11,20 @@ import SwiftUI
 enum CategoryFilterViewModel {
     case all
     case other(TransactionModel.Category)
+    
+    // MARK: helper computed properties
+    var name: String {
+        return id
+    }
+    
+    var color: Color {
+        switch self {
+        case .all:
+            return Color.black
+        case .other(let category):
+            return category.color
+        }
+    }
 }
 
 extension CategoryFilterViewModel: CaseIterable {
