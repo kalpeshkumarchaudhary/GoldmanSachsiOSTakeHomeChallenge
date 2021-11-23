@@ -64,7 +64,8 @@ struct RingView: View {
                         text: percentageText(for: categoryIndex)
                     )
                 )
-                .opacity(ratio == 0.0 ? 0 : 1)
+                // Only show the PercentageText if we have ratio greater than 0
+                .opacity(ratio > 0.0 ? 1 : 0)
             }
         }
     }
