@@ -15,6 +15,15 @@ class TransactionsViewModel: ObservableObject {
         self.transactions = transactions
     }
     
+    func filterTransactions(by category: CategoryFilterViewModel) -> [TransactionItemViewModel] {
+        switch category {
+        case .all:
+            return transactions
+        case .other(let category):
+            return transactions.filter { $0.transaction.category == category }
+        }
+    }
+    
     static let sampleViewModel: TransactionsViewModel = {
         return TransactionsViewModel(transactions: ModelData.sampleTransactions.map({ TransactionItemViewModel(transaction: $0)}))
     }()
