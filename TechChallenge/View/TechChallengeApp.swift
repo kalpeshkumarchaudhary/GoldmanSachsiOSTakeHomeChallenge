@@ -17,6 +17,7 @@ struct TechChallengeApp: App {
                 NavigationView {
                     TransactionListView(viewModel: viewModel)
                 }
+                .navigationViewStyle(.stack)
                 .tabItem {
                     Label("Transactions", systemImage: "list.bullet")
                 }
@@ -24,6 +25,7 @@ struct TechChallengeApp: App {
                 NavigationView {
                     InsightsView(viewModel: viewModel)
                 }
+                .navigationViewStyle(.stack)
                 .tabItem {
                     Label("Insights", systemImage: "chart.pie.fill")
                 }
