@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct TransactionListView: View {
-    let transactions: [TransactionModel] = ModelData.sampleTransactions
     @State private var selectedFilter: CategoryFilterViewModel = .all
+    @ObservedObject var viewModel: TransactionsViewModel
     
     var body: some View {
         VStack {
             CategoryFilterView(selectedFilter: $selectedFilter)
             List {
-                ForEach(transactions) { transaction in
-                    TransactionView(transaction: transaction)
+                ForEach($viewModel.transactions) { $transaction in
+                    TransactionView(viewModel: $transaction)
                 }
             }
             .animation(.easeIn)
@@ -30,7 +30,7 @@ struct TransactionListView: View {
 #if DEBUG
 struct TransactionListView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionListView()
+        TransactionListView(viewModel: TransactionsViewModel.sampleViewModel)
     }
 }
 #endif

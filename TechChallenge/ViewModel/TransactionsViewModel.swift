@@ -14,4 +14,8 @@ class TransactionsViewModel: ObservableObject {
     init(transactions: [TransactionItemViewModel] = []) {
         self.transactions = transactions
     }
+    
+    static let sampleViewModel: TransactionsViewModel = {
+        return TransactionsViewModel(transactions: ModelData.sampleTransactions.map({ TransactionItemViewModel(transaction: $0)}))
+    }()
 }
