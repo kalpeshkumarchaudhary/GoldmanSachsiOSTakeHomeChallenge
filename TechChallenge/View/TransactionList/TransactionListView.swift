@@ -14,45 +14,53 @@ struct TransactionListView: View {
     var body: some View {
         VStack {
             CategoryFilterView(selectedFilter: $selectedFilter)
-            List {
-                ForEach(viewModel.filterTransactions(by: selectedFilter)) { transaction in
-                    if let index = viewModel.transactions.firstIndex(where: { $0 == transaction }) {
-                        TransactionView(viewModel: $viewModel.transactions[index])
-                    }
-                }
-            }
-            .animation(.easeIn)
-            .listStyle(PlainListStyle())
+            
+            transactionListView
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Transactions")
             
-            VStack {
-                HStack {
-                    Spacer()
-                    Text(selectedFilter.name)
-                        .foregroundColor(selectedFilter.color)
-                        .font(.headline)
-                }
-                
-                HStack {
-                    Text("Total spent:")
-                        .fontWeight(.regular)
-                        .secondary()
-                    Spacer()
-                    Text("$\(viewModel.formattedAmount(by: selectedFilter))")
-                        .fontWeight(.bold)
-                        .secondary()
+            amountByCategoryView
+        }
+    }
+    
+    private var transactionListView: some View {
+        List {
+            ForEach(viewModel.filterTransactions(by: selectedFilter)) { transaction in
+                if let index = viewModel.transactions.firstIndex(where: { $0 == transaction }) {
+                    TransactionView(viewModel: $viewModel.transactions[index])
                 }
             }
-            .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8.0)
-                    .stroke(Color.black, lineWidth: 2.0)
-            )
-            .cornerRadius(8.0)
-            .padding(.vertical, 4.0)
-            .padding(.horizontal, 8.0)
         }
+        .animation(.easeIn)
+        .listStyle(PlainListStyle())
+    }
+    
+    private var amountByCategoryView: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text(selectedFilter.name)
+                    .foregroundColor(selectedFilter.color)
+                    .font(.headline)
+            }
+            
+            HStack {
+                Text("Total spent:")
+                    .fontWeight(.regular)
+                    .secondary()
+                Spacer()
+                Text("$\(viewModel.formattedAmount(by: selectedFilter))")
+                    .fontWeight(.bold)
+                    .secondary()
+            }
+        }
+        .padding()
+        .overlay(
+            RoundedRectangle(cornerRadius: 8.0)
+                .stroke(Color.black, lineWidth: 2.0)
+        )
+        .padding(.vertical, 4.0)
+        .padding(.horizontal, 8.0)
     }
 }
 

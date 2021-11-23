@@ -19,6 +19,7 @@ struct TransactionView: View {
                 Spacer()
                 Image(systemName: viewModel.isPinned ? "pin.fill" : "pin.slash.fill")
             }
+            // Adding contentShape to make entire HStack tappable
             .contentShape(Rectangle())
             .onTapGesture {
                 viewModel.toggleIsPinned()
