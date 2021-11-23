@@ -33,6 +33,10 @@ class TransactionsViewModel: ObservableObject {
         return amount(by: category).formatted(hasDecimals: true)
     }
     
+    func formattedAmount(by category: TransactionModel.Category) -> String {
+        return formattedAmount(by: .other(category))
+    }
+    
     static let sampleViewModel: TransactionsViewModel = {
         return TransactionsViewModel(transactions: ModelData.sampleTransactions.map({ TransactionItemViewModel(transaction: $0)}))
     }()
