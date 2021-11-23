@@ -13,17 +13,11 @@ struct RingView: View {
     @ObservedObject var viewModel: TransactionsViewModel
     
     private func ratio(for categoryIndex: Int) -> Double {
-        // TODO: calculate ratio for each category according to cummulative expense
-        
-        // Returning sample value
-        0.2
+        return viewModel.ratio(for: categoryIndex)
     }
     
     private func offset(for categoryIndex: Int) -> Double {
-        // TODO: calculate offset for each category according to cummulative expense
-        
-        // Returning sample value
-        Double(categoryIndex) * 0.2
+        return (0..<categoryIndex).map({ ratio(for: $0) }).reduce(0.0, +)
     }
 
     private func gradient(for categoryIndex: Int) -> AngularGradient {
