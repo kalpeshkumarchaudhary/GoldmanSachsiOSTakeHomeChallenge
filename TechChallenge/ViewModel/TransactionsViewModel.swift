@@ -14,7 +14,12 @@ class TransactionsViewModel: ObservableObject {
     init(transactions: [TransactionItemViewModel] = []) {
         self.transactions = transactions
     }
+    // MARK: Public Properties
+    var transactionCategories: [TransactionModel.Category] {
+        return TransactionModel.Category.allCases
+    }
     
+    // MARK: Public Methods
     func filterTransactions(by category: CategoryFilterViewModel) -> [TransactionItemViewModel] {
         switch category {
         case .all:
