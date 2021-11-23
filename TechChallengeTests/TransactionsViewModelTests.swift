@@ -68,11 +68,31 @@ class TransactionsViewModelTests: XCTestCase {
     }
     
     func testFormattedAmountByCategotyViewModelForPinnedUnPinnedTransactions() {
+        let sut = makeSutWithPinnedAndUnPinnedTransactions()
+        var formattedAmountByCategory: String = ""
         
+        // Test formatted amount by .food
+        // Sut has 2 transactions in .food one of which is unpinned
+        formattedAmountByCategory = sut.formattedAmount(by: .other(.food))
+        XCTAssertEqual(formattedAmountByCategory, "10.00")
+        
+        // Test formatted amount by .shopping
+        // Sut has 2 transactions in .shopping all of which are pinned
+        formattedAmountByCategory = sut.formattedAmount(by: .other(.shopping))
+        XCTAssertEqual(formattedAmountByCategory, "60.00")
     }
     
     func testFormattedAmountByCategotyViewModelIsZeroForAllUnPinnedTransactions() {
+        let sut = makeSutWithAllUnPinnedTransactions()
+        var formattedAmountByCategory: String = ""
         
+        // Test formatted amount by .entertainment
+        formattedAmountByCategory = sut.formattedAmount(by: .other(.entertainment))
+        XCTAssertEqual(formattedAmountByCategory, "0.00")
+        
+        // Test formatted amount by .shopping
+        formattedAmountByCategory = sut.formattedAmount(by: .other(.shopping))
+        XCTAssertEqual(formattedAmountByCategory, "0.00")
     }
     
     func testFormattedAmountByCategotyViewModelReturnsZeroForNoTransactionWithCategory() {
@@ -83,9 +103,64 @@ class TransactionsViewModelTests: XCTestCase {
         formattedAmountByCategory = sut.formattedAmount(by: .other(.travel))
         XCTAssertEqual(formattedAmountByCategory, "0.00")
     }
+    
+    func testFormattedAmountByCategotyForAllPinnedTransactions() {
+        let sut = makeSut()
+        var formattedAmountByCategory: String = ""
+        
+        // Test formatted amount by .food
+        formattedAmountByCategory = sut.formattedAmount(by: .food)
+        XCTAssertEqual(formattedAmountByCategory, "35.00")
+        
+        // Test formatted amount by .shopping
+        formattedAmountByCategory = sut.formattedAmount(by: .shopping)
+        XCTAssertEqual(formattedAmountByCategory, "60.00")
+        
+        // Test formatted amount by .entertainment
+        formattedAmountByCategory = sut.formattedAmount(by: .entertainment)
+        XCTAssertEqual(formattedAmountByCategory, "82.00")
+    }
+    
+    func testFormattedAmountByCategotyForPinnedUnPinnedTransactions() {
+        let sut = makeSutWithPinnedAndUnPinnedTransactions()
+        var formattedAmountByCategory: String = ""
+        
+        // Test formatted amount by .food
+        // Sut has 2 transactions in .food one of which is unpinned
+        formattedAmountByCategory = sut.formattedAmount(by: .food)
+        XCTAssertEqual(formattedAmountByCategory, "10.00")
+        
+        // Test formatted amount by .shopping
+        // Sut has 2 transactions in .shopping all of which are pinned
+        formattedAmountByCategory = sut.formattedAmount(by: .shopping)
+        XCTAssertEqual(formattedAmountByCategory, "60.00")
+    }
+    
+    func testFormattedAmountByCategotyIsZeroForAllUnPinnedTransactions() {
+        let sut = makeSutWithAllUnPinnedTransactions()
+        var formattedAmountByCategory: String = ""
+        
+        // Test formatted amount by .entertainment
+        formattedAmountByCategory = sut.formattedAmount(by: .entertainment)
+        XCTAssertEqual(formattedAmountByCategory, "0.00")
+        
+        // Test formatted amount by .shopping
+        formattedAmountByCategory = sut.formattedAmount(by: .shopping)
+        XCTAssertEqual(formattedAmountByCategory, "0.00")
+    }
+    
+    func testFormattedAmountByCategotyReturnsZeroForNoTransactionWithCategory() {
+        let sut = makeSut()
+        var formattedAmountByCategory: String = ""
+        
+        // Test formatted amount by category for which no transactions exist
+        formattedAmountByCategory = sut.formattedAmount(by: .travel)
+        XCTAssertEqual(formattedAmountByCategory, "0.00")
+    }
 }
 
 extension TransactionsViewModelTests {
+    // Creating methods to create different suts as different tests require different set up
     private func makeSut() -> TransactionsViewModel {
         return TransactionsViewModel(transactions: [
             TransactionItemViewModel(transaction: TransactionModel(
