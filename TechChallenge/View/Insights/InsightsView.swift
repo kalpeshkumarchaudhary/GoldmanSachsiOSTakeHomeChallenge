@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct InsightsView: View {
-    let transactions: [TransactionModel] = ModelData.sampleTransactions
+    @ObservedObject var viewModel: TransactionsViewModel
     
     var body: some View {
         List {
-            RingView(transactions: transactions)
-                .scaledToFit()
+//            RingView(transactions: transactions)
+//                .scaledToFit()
             
-            ForEach(TransactionModel.Category.allCases) { category in
+            ForEach(viewModel.transactionCategories) { category in
                 HStack {
                     Text(category.rawValue)
                         .font(.headline)
@@ -36,7 +36,7 @@ struct InsightsView: View {
 #if DEBUG
 struct InsightsView_Previews: PreviewProvider {
     static var previews: some View {
-        InsightsView()
+        InsightsView(viewModel: TransactionsViewModel.sampleViewModel)
             .previewLayout(.sizeThatFits)
     }
 }
