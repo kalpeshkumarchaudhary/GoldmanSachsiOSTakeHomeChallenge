@@ -15,8 +15,10 @@ struct TransactionListView: View {
         VStack {
             CategoryFilterView(selectedFilter: $selectedFilter)
             List {
-                ForEach($viewModel.transactions) { $transaction in
-                    TransactionView(viewModel: $transaction)
+                ForEach(viewModel.filterTransactions(by: selectedFilter)) { transaction in
+                    if let index = viewModel.transactions.firstIndex(where: { $0 == transaction }) {
+                        TransactionView(viewModel: $viewModel.transactions[index])
+                    }
                 }
             }
             .animation(.easeIn)
