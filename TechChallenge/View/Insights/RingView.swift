@@ -23,16 +23,21 @@ struct RingView: View {
 
     private func gradient(for categoryIndex: Int) -> AngularGradient {
         let color = Category[categoryIndex]?.color ?? .black
+        
+        // Refactoring multiple method calls in to properties
+        let ratio = ratio(for: categoryIndex)
+        let offset = offset(for: categoryIndex)
+        
         return AngularGradient(
             gradient: Gradient(colors: [color.unsaturated, color]),
             center: .center,
             startAngle: .init(
-                offset: offset(for: categoryIndex),
+                offset: offset,
                 ratio: 0
             ),
             endAngle: .init(
-                offset: offset(for: categoryIndex),
-                ratio: ratio(for: categoryIndex)
+                offset: offset,
+                ratio: ratio
             )
         )
     }
