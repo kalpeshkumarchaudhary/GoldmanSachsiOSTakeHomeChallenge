@@ -12,40 +12,46 @@ struct TransactionView: View {
     
     var body: some View {
         VStack {
-//            HStack {
-//                Text(transaction.category.rawValue)
-//                    .font(.headline)
-//                    .foregroundColor(transaction.category.color)
-//                Spacer()
-//            }
-//
-//            HStack {
-//                transaction.image
-//                    .resizable()
-//                    .frame(
-//                        width: 60.0,
-//                        height: 60.0,
-//                        alignment: .top
-//                    )
-//
-//                VStack(alignment: .leading) {
-//                    Text(transaction.name)
-//                        .secondary()
-//                    Text(transaction.accountName)
-//                        .tertiary()
-//                }
-//
-//                Spacer()
-//
-//                VStack(alignment: .trailing) {
-//                    Text("$\(transaction.amount.formatted())")
-//                        .bold()
-//                        .secondary()
-//                    Text(transaction.date.formatted)
-//                        .tertiary()
-//                }
-//            }
-            Text("Place Holder")
+            HStack {
+                Text(viewModel.categoryName)
+                    .font(.headline)
+                    .foregroundColor(viewModel.categoryColor)
+                Spacer()
+                Image(systemName: viewModel.isPinned ? "pin.fill" : "pin.slash.fill")
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                viewModel.toggleIsPinned()
+            }
+            
+            if viewModel.isPinned {
+                HStack {
+                    viewModel.transactionImage
+                        .resizable()
+                        .frame(
+                            width: 60.0,
+                            height: 60.0,
+                            alignment: .top
+                        )
+                    
+                    VStack(alignment: .leading) {
+                        Text(viewModel.transactionName)
+                            .secondary()
+                        Text(viewModel.accountName)
+                            .tertiary()
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        Text("$\(viewModel.transactionAmount)")
+                            .bold()
+                            .secondary()
+                        Text(viewModel.transactionDate)
+                            .tertiary()
+                    }
+                }
+            }
         }
         .padding(8.0)
         .background(Color.accentColor.opacity(0.1))
