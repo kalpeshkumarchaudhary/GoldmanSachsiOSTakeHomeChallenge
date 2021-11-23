@@ -15,6 +15,11 @@ class TransactionsViewModel: ObservableObject {
         self.transactions = transactions
     }
     
+    convenience init() {
+        // Currently usig sample data to initialize
+        self.init(transactions: ModelData.sampleTransactionItemViewModels)
+    }
+    
     // MARK: Public Properties
     var transactionCategories: [TransactionModel.Category] {
         return TransactionModel.Category.allCases
@@ -51,7 +56,7 @@ class TransactionsViewModel: ObservableObject {
     }
     
     static let sampleViewModel: TransactionsViewModel = {
-        return TransactionsViewModel(transactions: ModelData.sampleTransactions.map({ TransactionItemViewModel(transaction: $0)}))
+        return TransactionsViewModel(transactions: ModelData.sampleTransactionItemViewModels)
     }()
 }
 

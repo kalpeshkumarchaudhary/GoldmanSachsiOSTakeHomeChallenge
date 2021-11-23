@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct TechChallengeApp: App {
-    @StateObject private var viewModel: TransactionsViewModel = TransactionsViewModel.sampleViewModel
+    @StateObject private var viewModel: TransactionsViewModel = TransactionsViewModel()
     
     var body: some Scene {
         WindowGroup {

@@ -133,4 +133,6 @@ struct ModelData {
             provider: .americanAirlines
         )
     ]
+    
+    static let sampleTransactionItemViewModels: [TransactionItemViewModel] = ModelData.sampleTransactions.map({ TransactionItemViewModel(transaction: $0)})
 }
