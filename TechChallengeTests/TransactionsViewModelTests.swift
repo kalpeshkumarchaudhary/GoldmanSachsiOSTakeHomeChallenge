@@ -67,42 +67,33 @@ class TransactionsViewModelTests: XCTestCase {
     }
 
     func testFilterTransactionsByCategoty() {
-        // When
-        let transactionsFilteredByFood = sut.filterTransactions(by: .other(.food))
-        // Then
-        XCTAssertEqual(transactionsFilteredByFood.count, 2)
+        var transactionsFilteredByCategory: [TransactionItemViewModel] = []
+        
+        // Test filtering by .food
+        transactionsFilteredByCategory = sut.filterTransactions(by: .other(.food))
+        XCTAssertEqual(transactionsFilteredByCategory.count, 2)
+        
+        // Test filtering by .shopping
+        transactionsFilteredByCategory = sut.filterTransactions(by: .other(.shopping))
+        XCTAssertEqual(transactionsFilteredByCategory.count, 2)
+        
+        // Test filtering by .entertainment
+        transactionsFilteredByCategory = sut.filterTransactions(by: .other(.entertainment))
+        XCTAssertEqual(transactionsFilteredByCategory.count, 1)
     }
     
     func testFilterTransactionsByAllCategotyReturnsAllTransaction() {
-        
+        var transactionsFilteredByCategory: [TransactionItemViewModel] = []
+        // Test filtering by .all
+        transactionsFilteredByCategory = sut.filterTransactions(by: .all)
+        XCTAssertEqual(transactionsFilteredByCategory.count, sut.transactions.count)
     }
     
     func testFilterTransactionsByCategoryReturnsEmptyForNoTransactionWithCategory() {
-        
-    }
-    
-    func testFormattedAmountByCategotyViewModelForAllPinnedTransactions() {
-        
-    }
-    
-    func testFormattedAmountByCategotyViewModelForPinnedUnPinnedTransactions() {
-        
-    }
-    
-    func testFormattedAmountByCategotyViewModelIsZeroForAllUnPinnedTransactions() {
-        
-    }
-    
-    func testFormattedAmountByCategotyForAllPinnedTransactions() {
-        
-    }
-    
-    func testFormattedAmountByCategotyForPinnedUnPinnedTransactions() {
-        
-    }
-    
-    func testFormattedAmountByCategotyIsZeroForAllUnPinnedTransactions() {
-        
+        var transactionsFilteredByCategory: [TransactionItemViewModel] = []
+        // Test filtering by category for which no transactions exist
+        transactionsFilteredByCategory = sut.filterTransactions(by: .other(.travel))
+        XCTAssertTrue(transactionsFilteredByCategory.isEmpty)
     }
 
 }
