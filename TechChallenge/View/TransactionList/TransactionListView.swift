@@ -25,6 +25,33 @@ struct TransactionListView: View {
             .listStyle(PlainListStyle())
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Transactions")
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    Text(selectedFilter.name)
+                        .foregroundColor(selectedFilter.color)
+                        .font(.headline)
+                }
+                
+                HStack {
+                    Text("Total spent:")
+                        .fontWeight(.regular)
+                        .secondary()
+                    Spacer()
+                    Text("$\(viewModel.formattedAmount(by: selectedFilter))")
+                        .fontWeight(.bold)
+                        .secondary()
+                }
+            }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 8.0)
+                    .stroke(Color.black, lineWidth: 2.0)
+            )
+            .cornerRadius(8.0)
+            .padding(.vertical, 4.0)
+            .padding(.horizontal, 8.0)
         }
     }
 }
