@@ -14,9 +14,17 @@ class TransactionsViewModel: ObservableObject {
     init(transactions: [TransactionItemViewModel] = []) {
         self.transactions = transactions
     }
+    
     // MARK: Public Properties
     var transactionCategories: [TransactionModel.Category] {
         return TransactionModel.Category.allCases
+    }
+    
+    // MARK: Private Properties
+    private var totalAmount: Double {
+        return transactions.filter({ $0.isPinned })
+            .map({ $0.transaction.amount} )
+            .reduce(0.0, +)
     }
     
     // MARK: Public Methods
@@ -35,6 +43,11 @@ class TransactionsViewModel: ObservableObject {
     
     func formattedAmount(by category: TransactionModel.Category) -> String {
         return formattedAmount(by: .other(category))
+    }
+    
+    func ratio(for categoryIndex: Int) -> Double {
+        guard let category = TransactionModel.Category[categoryIndex] else { return 0.0 }
+        return amount(by: .other(category)) / totalAmount
     }
     
     static let sampleViewModel: TransactionsViewModel = {

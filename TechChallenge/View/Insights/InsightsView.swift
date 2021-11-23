@@ -12,8 +12,8 @@ struct InsightsView: View {
     
     var body: some View {
         List {
-//            RingView(transactions: transactions)
-//                .scaledToFit()
+            RingView(viewModel: viewModel)
+                .scaledToFit()
             
             ForEach(viewModel.transactionCategories) { category in
                 HStack {
