@@ -17,6 +17,7 @@ struct RingView: View {
     }
     
     private func offset(for categoryIndex: Int) -> Double {
+        // Looping through all the previous category index to calculate cumulative offset
         return (0..<categoryIndex).map({ ratio(for: $0) }).reduce(0.0, +)
     }
 
@@ -43,9 +44,14 @@ struct RingView: View {
     var body: some View {
         ZStack {
             ForEach(Category.allCases.indices) { categoryIndex in
+                
+                // Refactoring multiple method calls in to properties
+                let ratio = ratio(for: categoryIndex)
+                let offset = offset(for: categoryIndex)
+                
                 PartialCircleShape(
-                    offset: offset(for: categoryIndex),
-                    ratio: ratio(for: categoryIndex)
+                    offset: offset,
+                    ratio: ratio
                 )
                 .stroke(
                     gradient(for: categoryIndex),
@@ -53,8 +59,8 @@ struct RingView: View {
                 )
                 .overlay(
                     PercentageText(
-                        offset: offset(for: categoryIndex),
-                        ratio: ratio(for: categoryIndex),
+                        offset: offset,
+                        ratio: ratio,
                         text: percentageText(for: categoryIndex)
                     )
                 )
