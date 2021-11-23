@@ -24,7 +24,20 @@ class TransactionsViewModel: ObservableObject {
         }
     }
     
+    func formattedAmount(by category: CategoryFilterViewModel) -> String {
+        return amount(by: category).formatted(hasDecimals: true)
+    }
+    
     static let sampleViewModel: TransactionsViewModel = {
         return TransactionsViewModel(transactions: ModelData.sampleTransactions.map({ TransactionItemViewModel(transaction: $0)}))
     }()
+}
+
+// MARK: Private methods
+extension TransactionsViewModel {
+    private func amount(by category: CategoryFilterViewModel) -> Double {
+        let transactions = filterTransactions(by: category).filter { $0.isPinned }
+        let totalAmountByCategory = transactions.map({ $0.transaction.amount }).reduce(0.0, +)
+        return totalAmountByCategory
+    }
 }
