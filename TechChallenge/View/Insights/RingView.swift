@@ -10,7 +10,7 @@ import SwiftUI
 fileprivate typealias Category = TransactionModel.Category
 
 struct RingView: View {
-    let transactions: [TransactionModel]
+    @ObservedObject var viewModel: TransactionsViewModel
     
     private func ratio(for categoryIndex: Int) -> Double {
         // TODO: calculate ratio for each category according to cummulative expense
@@ -129,7 +129,7 @@ struct RingView_Previews: PreviewProvider {
             sampleRing
                 .scaledToFit()
             
-            RingView(transactions: ModelData.sampleTransactions)
+            RingView(viewModel: TransactionsViewModel.sampleViewModel)
                 .scaledToFit()
         }
         .padding()
